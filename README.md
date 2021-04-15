@@ -4,6 +4,7 @@ Hardhat-reef-template prepares the user with all essentials to get started with 
 
 ## Installing
 Clone template and configure the new project name.
+
 `git clone git@github.com:reef-defi/hardhat-reef-template.git project-name`
 
 Install all dependencies with `yarn`.
