@@ -3,8 +3,12 @@
 Hardhat-reef-template prepares the user with all essentials to get started with the Reef-chain.
 
 ## Installing
-Install dependencies with `yarn`.
+Clone template and configure the new project name.
+`git clone git@github.com:reef-defi/hardhat-reef-template.git project-name`
 
+Install all dependencies with `yarn`.
+
+You are good to go!
 
 ## Running
 Write scripts under the `scripts` directory and run them using the following run template...
