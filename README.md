@@ -1,6 +1,6 @@
 # hardhat-reef-template
-
-Hardhat-reef-template prepares the user with all essentials to get started with the Reef-chain.
+Hardhat-reef-template is used to create a new Hardhat project for the Reef-chain.
+It includes all the essentials dependencies used to develop Reef contracts.
 
 ## Installing
 Clone template and configure the new project name.
