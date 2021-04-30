@@ -8,7 +8,15 @@
     "ethers": "^5.0.32",
     "hardhat": "^2.1.1"
   },
+  "scripts": {
+    "deploy": "node --trace-warnings -r ts-node/register/transpile-only src/deploy.ts",
+    "trade": "node -r ts-node/register/transpile-only src/trade.ts"
+  },
   "dependencies": {
-    "@reef-defi/hardhat-reef": "^0.4.2"
+    "@openzeppelin/contracts": "3.4.0",
+    "@reef-defi/hardhat-reef": "^0.4.6",
+    "@uniswap/lib": "^4.0.1-alpha",
+    "@uniswap/v2-core": "^1.0.1",
+    "ts-node": "^9.1.1"
   }
 }
