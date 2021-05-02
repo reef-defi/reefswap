@@ -1,16 +1,17 @@
 import { Contract, ContractFactory, BigNumber } from "ethers";
 
 // Our contracts
-import UniswapFactory from "../artifacts/contracts/uniswap/UniswapV2Factory.sol/UniswapV2Factory.json";
+//import UniswapFactory from "../artifacts/contracts/uniswap/UniswapV2Factory.sol/UniswapV2Factory.json";
 import UniswapRouter from "../artifacts/contracts/uniswap-periphery/UniswapV2Router02.sol/UniswapV2Router02.json";
 import Token from "../artifacts/contracts/Token.sol/Token.json";
 
 
 // Precompiled contracts
 //import { readFileSync } from 'fs';
-//import UniswapFactory from "../built_artifacts/UniswapV2Factory.json";
+import UniswapFactory from "../built_artifacts/UniswapV2Factory.json";
 //import UniswapRouter from "../artifacts/examples/UniswapV2Router02.json";
 //import Token from "../artifacts/examples/Token.json";
+import IERC20 from "../built_artifacts/IERC20.json";
 import setup from "./setup";
 
 
@@ -20,9 +21,9 @@ const main = async () => {
   const { wallet, provider } = await setup();
   const deployerAddress = await wallet.getAddress();
 
-  const tokenReef = await ContractFactory.fromSolidity(Token)
-    .connect(wallet)
-    .deploy(dollar.mul(1000));
+  const reefAddress = '0x0000000000000000000000000000000001000000';
+
+  const tokenReef = new Contract(reefAddress, IERC20.abi, wallet);
 
   const tokenErc = await ContractFactory.fromSolidity(Token)
     .connect(wallet)
