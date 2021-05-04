@@ -4,19 +4,25 @@
     "@nomiclabs/hardhat-ethers": "^2.0.2",
     "@nomiclabs/hardhat-waffle": "^2.0.1",
     "chai": "^4.3.4",
-    "ethereum-waffle": "^3.3.0",
-    "ethers": "^5.0.32",
+    "ethereum-waffle": "3.0.0",
+    "ethers": "5.0.32",
     "hardhat": "^2.1.1"
   },
   "scripts": {
     "deploy": "node --trace-warnings -r ts-node/register/transpile-only src/deploy.ts",
+    "deployWorking": "node --trace-warnings -r ts-node/register/transpile-only src/deployWorking.ts",
+    "deployReefTokenFail": "node --trace-warnings -r ts-node/register/transpile-only src/deployReefTokenFail.ts",
     "trade": "node -r ts-node/register/transpile-only src/trade.ts"
   },
+  "resolutions": {
+    "ethers": "5.0.32"
+  },
   "dependencies": {
+    "@nomiclabs/hardhat-ganache": "^2.0.0",
     "@openzeppelin/contracts": "3.4.0",
     "@reef-defi/hardhat-reef": "^0.4.6",
     "@uniswap/lib": "^4.0.1-alpha",
     "@uniswap/v2-core": "^1.0.1",
-    "ts-node": "^9.1.1"
+    "ts-node": "^8.9.1"
   }
 }
