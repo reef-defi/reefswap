@@ -1,7 +1,16 @@
 import { Contract, ContractFactory, BigNumber } from "ethers";
+
+// Our contracts
 import UniswapFactory from "../artifacts/contracts/uniswap/UniswapV2Factory.sol/UniswapV2Factory.json";
 import UniswapRouter from "../artifacts/contracts/uniswap-periphery/UniswapV2Router02.sol/UniswapV2Router02.json";
 import Token from "../artifacts/contracts/Token.sol/Token.json";
+
+
+// Precompiled contracts
+//import { readFileSync } from 'fs';
+//import UniswapFactory from "../built_artifacts/UniswapV2Factory.json";
+//import UniswapRouter from "../artifacts/examples/UniswapV2Router02.json";
+//import Token from "../artifacts/examples/Token.json";
 import setup from "./setup";
 
 
@@ -10,10 +19,6 @@ const dollar = BigNumber.from("10000000000000");
 const main = async () => {
   const { wallet, provider } = await setup();
   const deployerAddress = await wallet.getAddress();
-  const hre = require("hardhat");
-
-  let buildInfo = await hre.artifacts.getBuildInfo("contracts/Token.sol:Token")
-  const Token = buildInfo.output.contracts["contracts/Token.sol"]["Token"]
 
   const tokenReef = await ContractFactory.fromSolidity(Token)
     .connect(wallet)
@@ -23,16 +28,10 @@ const main = async () => {
     .connect(wallet)
     .deploy(dollar.mul(1000));
 
-    buildInfo = await hre.artifacts.getBuildInfo("contracts/uniswap/UniswapV2Factory.sol:UniswapV2Factory")
-    const UniswapFactory = buildInfo.output.contracts["contracts/uniswap/UniswapV2Factory.sol"]["UniswapV2Factory"]
-
   // deploy factory
   const factory = await ContractFactory.fromSolidity(UniswapFactory)
     .connect(wallet)
     .deploy(deployerAddress);
-
-    buildInfo = await hre.artifacts.getBuildInfo("contracts/uniswap-periphery/UniswapV2Router02.sol:UniswapV2Router02")
-    const UniswapRouter = buildInfo.output.contracts["contracts/uniswap-periphery/UniswapV2Router02.sol"]["UniswapV2Router02"]
 
   // deploy router
   const router = await ContractFactory.fromSolidity(UniswapRouter)
@@ -70,7 +69,7 @@ const main = async () => {
     tokenReef.address,
     tokenErc.address
   );
-  const tradingPair = new Contract(tradingPairAddress, IERC20.abi, wallet);
+  const tradingPair = new Contract(tradingPairAddress, Token.abi, wallet);
   const lpTokenAmount = await tradingPair.balanceOf(deployerAddress);
   const reefAmount = await tokenReef.balanceOf(tradingPairAddress);
   const ercAmount = await tokenErc.balanceOf(tradingPairAddress);
