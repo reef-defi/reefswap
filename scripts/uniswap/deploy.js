@@ -56,7 +56,10 @@ async function main() {
   const address = await uniswapDeployer.getAddress();
   console.log("address", address);
 
-  await router.addLiquidity(
+  console.log(await tokenReef.balanceOf(address));
+  console.log(await tokenReef.balanceOf(tokenReef.address));
+
+  const tx = await router.addLiquidity(
     tokenReef.address,
     tokenErc.address,
     dollar.mul(2),
@@ -67,14 +70,26 @@ async function main() {
     10000000000
   );
 
-  console.log("tx", tx);
-
+  // check
   const tradingPairAddress = await factory.getPair(
     tokenReef.address,
     tokenErc.address
   );
+
+  const tradingPair = await hre.reef.getContractAt(
+    "Token",
+    tradingPairAddress,
+    uniswapDeployer
+  );
+  const lpTokenAmount = await tradingPair.balanceOf(address);
+  const reefAmount = await tokenReef.balanceOf(tradingPairAddress);
+  const ercAmount = await tokenErc.balanceOf(tradingPairAddress);
+
   console.log({
-    tradingPairAddress: tradingPairAddress,
+    tradingPair: tradingPairAddress,
+    lpTokenAmount: lpTokenAmount.toString(),
+    liquidityPoolReefAmount: reefAmount.toString(),
+    liquidityPoolErcAmount: ercAmount.toString(),
   });
 }
 
