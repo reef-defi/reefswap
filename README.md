@@ -1,22 +1,14 @@
-# hardhat-reef-template
-Hardhat-reef-template is used to create a new Hardhat project for the Reef-chain.
-It includes all the essentials dependencies used to develop Reef contracts.
+# Reefswap
+
+Reefswap is a DEX on the Reef chain.
 
 ## Installing
-Clone template and configure the new project name.
-
-`git clone git@github.com:reef-defi/hardhat-reef-template.git project-name`
 
 Install all dependencies with `yarn`.
 
-You are good to go!
-
 ## Running
 Write scripts under the `scripts` directory and run them using the following run template...
-`yarn hardhat run scripts/{script-name}.js`
-
-The default Greeter contract script can be run using the following command...
-`yarn hardhat run scripts/sample-script.js`
+`npx hardhat run scripts/{script-name}.js`
 
 
 ## Configure

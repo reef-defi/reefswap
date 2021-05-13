@@ -17,11 +17,63 @@ task("accounts", "Prints the list of accounts", async () => {
  * @type import('hardhat/config').HardhatUserConfig
  */
 module.exports = {
-  solidity: "0.7.3",
+  solidity: {
+    compilers: [
+      {
+        version: "0.5.16",
+        settings: {
+          optimizer: {
+            enabled: true,
+            runs: 999999,
+          },
+          outputSelection: {
+            "*": {
+              "*": ["metadata", "evm.bytecode", "evm.bytecode.sourceMap"],
+              "": ["ast"],
+            },
+          },
+        },
+      },
+      {
+        version: "0.6.6",
+        settings: {
+          optimizer: {
+            enabled: true,
+            runs: 999999,
+          },
+          outputSelection: {
+            "*": {
+              "*": ["metadata", "evm.bytecode", "evm.bytecode.sourceMap"],
+              "": ["ast"],
+            },
+          },
+        },
+      },
+      {
+        version: "0.7.3",
+        settings: {
+          optimizer: {
+            enabled: true,
+            runs: 999999,
+          },
+          outputSelection: {
+            "*": {
+              "*": ["metadata", "evm.bytecode", "evm.bytecode.sourceMap"],
+              "": ["ast"],
+            },
+          },
+        },
+      },
+    ],
+  },
   defaultNetwork: "reef",
   networks: {
     reef: {
       url: "ws://127.0.0.1:9944",
-    }
+    },
+    ganache: {
+      url: "http://127.0.0.1:8545",
+      gasLimit: 6000000000,
+    },
   },
 };
