@@ -3878,20 +3878,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@uniswap/lib@npm:^4.0.1-alpha":
-  version: 4.0.1-alpha
-  resolution: "@uniswap/lib@npm:4.0.1-alpha"
-  checksum: ce30f7f6dde6d7c955267dc1a631874aaab4df2b591550c334acf70935da8fc27802998e4d585641feac8277c221babd31c16d4038a5c812de4d9f6e969061b4
-  languageName: node
-  linkType: hard
-
-"@uniswap/v2-core@npm:^1.0.1":
-  version: 1.0.1
-  resolution: "@uniswap/v2-core@npm:1.0.1"
-  checksum: e3dcbe72500530249b68d2f2c92062f3f21919267123262578a34cac2862edf7eeda8fcdc808a370d109f26e357635b1cf546e35dbd902a18768ac88d9a8fb0f
-  languageName: node
-  linkType: hard
-
 "@vue/component-compiler-utils@npm:^3.2.0":
   version: 3.2.0
   resolution: "@vue/component-compiler-utils@npm:3.2.0"
@@ -9808,8 +9794,6 @@ fsevents@~2.1.1:
     "@nomiclabs/hardhat-waffle": ^2.0.1
     "@openzeppelin/contracts": 3.4.0
     "@reef-defi/hardhat-reef": ^0.4.6
-    "@uniswap/lib": ^4.0.1-alpha
-    "@uniswap/v2-core": ^1.0.1
     chai: ^4.3.4
     ethereum-waffle: 3.0.0
     ethers: 5.0.32

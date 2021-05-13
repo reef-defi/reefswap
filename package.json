@@ -21,8 +21,6 @@
     "@nomiclabs/hardhat-ganache": "^2.0.0",
     "@openzeppelin/contracts": "3.4.0",
     "@reef-defi/hardhat-reef": "^0.4.6",
-    "@uniswap/lib": "^4.0.1-alpha",
-    "@uniswap/v2-core": "^1.0.1",
     "ts-node": "^8.9.1"
   }
 }
