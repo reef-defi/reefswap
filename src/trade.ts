@@ -1,7 +1,8 @@
 import { Contract, BigNumber } from "ethers";
-import UniswapFactory from "../artifacts/UniswapV2Factory.json";
-import UniswapRouter from "../artifacts/UniswapV2Router02.json";
-import IERC20 from "../artifacts/IERC20.json";
+import UniswapFactory from "../artifacts/contracts/UniswapV2Factory.sol/UniswapV2Factory.json";
+import UniswapRouter from "../artifacts/contracts/UniswapV2Router02.sol/UniswapV2Router02.json";
+import Token from "../artifacts/contracts/Token.sol/Token.json";
+
 import setup from "./setup";
 
 const dollar = BigNumber.from("1000000000000");
@@ -18,8 +19,8 @@ const main = async () => {
   console.log(dic);
   const { wallet, provider } = await setup();
   const deployerAddress = await wallet.getAddress();
-  const tokenReef = new Contract(dic.tokenReef, IERC20.abi, wallet);
-  const tokenErc = new Contract(dic.tokenErc, IERC20.abi, wallet);
+  const tokenReef = new Contract(dic.tokenReef, Token.abi, wallet);
+  const tokenErc = new Contract(dic.tokenErc, Token.abi, wallet);
 
   const router = new Contract(dic.router, UniswapRouter.abi, wallet);
   const factory = new Contract(
@@ -61,7 +62,7 @@ const main = async () => {
 
   // check
   const tradingPairAddress = await factory.getPair(dic.tokenReef, dic.tokenErc);
-  const tradingPair = new Contract(tradingPairAddress, IERC20.abi, wallet);
+  const tradingPair = new Contract(tradingPairAddress, Token.abi, wallet);
   const lpTokenAmount = await tradingPair.balanceOf(deployerAddress);
   const lpReefAmount = await tokenReef.balanceOf(tradingPairAddress);
   const lpErcAmount = await tokenErc.balanceOf(tradingPairAddress);
