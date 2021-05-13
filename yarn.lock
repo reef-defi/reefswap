@@ -3210,9 +3210,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@reef-defi/hardhat-reef@npm:^0.4.6":
-  version: 0.4.6
-  resolution: "@reef-defi/hardhat-reef@npm:0.4.6"
+"@reef-defi/hardhat-reef@npm:^0.4.11":
+  version: 0.4.11
+  resolution: "@reef-defi/hardhat-reef@npm:0.4.11"
   dependencies:
     "@polkadot/api": ^4.3.1
     "@polkadot/types": ^4.3.1
@@ -3224,7 +3224,7 @@ __metadata:
     portscanner: ^2.2.0
   peerDependencies:
     hardhat: ^2.0.0
-  checksum: b4dde26805f8a372e903bf8d8f4271944bf76bdc5842eee934dcccdc687a3de1e94ee8ba41d94c0ed433e0ba0525eb27a14b2e605daacb489c395221da652054
+  checksum: 3807548ab0ae2167129a2033873b5c9482d0e1ddb90b7affbbe73b117d9f1484d342dc35f5a1d1b84a2bde22b024ee29b8486516b65e1dfe3b1a0c7fb0d1dc22
   languageName: node
   linkType: hard
 
@@ -9793,7 +9793,7 @@ fsevents@~2.1.1:
     "@nomiclabs/hardhat-ganache": ^2.0.0
     "@nomiclabs/hardhat-waffle": ^2.0.1
     "@openzeppelin/contracts": 3.4.0
-    "@reef-defi/hardhat-reef": ^0.4.6
+    "@reef-defi/hardhat-reef": ^0.4.11
     chai: ^4.3.4
     ethereum-waffle: 3.0.0
     ethers: 5.0.32
