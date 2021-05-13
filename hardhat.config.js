@@ -28,14 +28,8 @@ module.exports = {
           },
           outputSelection: {
             "*": {
-              "*": [
-                "metadata",
-                "evm.bytecode", // Enable the metadata and bytecode outputs of every single contract.
-                "evm.bytecode.sourceMap", // Enable the source map output of every single contract.
-              ],
-              "": [
-                "ast", // Enable the AST output of every single file.
-              ],
+              "*": ["metadata", "evm.bytecode", "evm.bytecode.sourceMap"],
+              "": ["ast"],
             },
           },
         },
@@ -49,14 +43,8 @@ module.exports = {
           },
           outputSelection: {
             "*": {
-              "*": [
-                "metadata",
-                "evm.bytecode", // Enable the metadata and bytecode outputs of every single contract.
-                "evm.bytecode.sourceMap", // Enable the source map output of every single contract.
-              ],
-              "": [
-                "ast", // Enable the AST output of every single file.
-              ],
+              "*": ["metadata", "evm.bytecode", "evm.bytecode.sourceMap"],
+              "": ["ast"],
             },
           },
         },
@@ -70,14 +58,8 @@ module.exports = {
           },
           outputSelection: {
             "*": {
-              "*": [
-                "metadata",
-                "evm.bytecode", // Enable the metadata and bytecode outputs of every single contract.
-                "evm.bytecode.sourceMap", // Enable the source map output of every single contract.
-              ],
-              "": [
-                "ast", // Enable the AST output of every single file.
-              ],
+              "*": ["metadata", "evm.bytecode", "evm.bytecode.sourceMap"],
+              "": ["ast"],
             },
           },
         },
