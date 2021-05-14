@@ -1,9 +1,16 @@
 import { Contract, ContractFactory, BigNumber } from "ethers";
 
-import UniswapFactory from "../artifacts/contracts/UniswapV2Factory.sol/UniswapV2Factory.json";
-import UniswapRouter from "../artifacts/contracts/UniswapV2Router02.sol/UniswapV2Router02.json";
+// Our contracts
+import UniswapFactory from "../artifacts/contracts/uniswap/UniswapV2Factory.sol/UniswapV2Factory.json";
+import UniswapRouter from "../artifacts/contracts/uniswap-periphery/UniswapV2Router02.sol/UniswapV2Router02.json";
 import Token from "../artifacts/contracts/Token.sol/Token.json";
 
+
+// Precompiled contracts
+//import { readFileSync } from 'fs';
+//import UniswapFactory from "../built_artifacts/UniswapV2Factory.json";
+//import UniswapRouter from "../artifacts/examples/UniswapV2Router02.json";
+//import Token from "../artifacts/examples/Token.json";
 import setup from "./setup";
 
 
