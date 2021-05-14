@@ -10,8 +10,7 @@
   },
   "scripts": {
     "deploy": "node --trace-warnings -r ts-node/register/transpile-only src/deploy.ts",
-    "deployWorking": "node --trace-warnings -r ts-node/register/transpile-only src/deployWorking.ts",
-    "deployReefTokenFail": "node --trace-warnings -r ts-node/register/transpile-only src/deployReefTokenFail.ts",
+    "calculateInitHashCode": "node --trace-warnings -r ts-node/register/transpile-only src/calculateInitHashCode.ts",
     "trade": "node -r ts-node/register/transpile-only src/trade.ts"
   },
   "resolutions": {
