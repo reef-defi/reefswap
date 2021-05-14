@@ -21,7 +21,7 @@ library ReefswapV2Library {
                 hex'ff',
                 factory,
                 keccak256(abi.encodePacked(token0, token1)),
-                hex'5ec1606125dc252793c2e550b8b9e6e41825e93cc9c9683cdeeeb4f48dc165c1' // init code hash
+                hex'5ab3fa688c4bf6e08fa334d5f13c17175ae2e87dee7ac66682e2e10a471ef881' // init code hash
             ))));
     }
 

@@ -7,7 +7,7 @@ contract ReefswapV2ERC20 is IReefswapV2ERC20 {
     using SafeMath for uint;
 
     string public constant name = 'Reefswap V2';
-    string public constant symbol = 'UNI-V2';
+    string public constant symbol = 'REEF-V2';
     uint8 public constant decimals = 18;
     uint  public totalSupply;
     mapping(address => uint) public balanceOf;
