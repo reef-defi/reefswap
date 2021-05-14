@@ -5,20 +5,20 @@ const dollar = ethers.BigNumber.from("10000000000000");
 const REEF_ADDRESS = "0x0000000000000000000000000000000001000000";
 
 async function main() {
-  const uniswapDeployer = await hre.reef.getSignerByName("alice");
+  const reefswapDeployer = await hre.reef.getSignerByName("alice");
 
   // token contracts
-  const ReefToken = await hre.reef.getContractFactory("Token", uniswapDeployer);
-  const ErcToken = await hre.reef.getContractFactory("Token", uniswapDeployer);
+  const ReefToken = await hre.reef.getContractFactory("Token", reefswapDeployer);
+  const ErcToken = await hre.reef.getContractFactory("Token", reefswapDeployer);
 
-  // uniswap contracts
+  // reefswap contracts
   const ReefswapV2Factory = await hre.reef.getContractFactory(
     "ReefswapV2Factory",
-    uniswapDeployer
+    reefswapDeployer
   );
   const ReefswapV2Router = await hre.reef.getContractFactory(
     "ReefswapV2Router02",
-    uniswapDeployer
+    reefswapDeployer
   );
 
   // deploy
@@ -26,7 +26,7 @@ async function main() {
   const tokenErc = await ErcToken.deploy(dollar.mul(1000));
 
   const factory = await ReefswapV2Factory.deploy(
-    await uniswapDeployer.getAddress()
+    await reefswapDeployer.getAddress()
   );
 
   const router = await ReefswapV2Router.deploy(
@@ -48,7 +48,7 @@ async function main() {
 
   console.log("Approve successful");
 
-  const address = await uniswapDeployer.getAddress();
+  const address = await reefswapDeployer.getAddress();
 
   const tx = await router.addLiquidity(
     tokenReef.address,
@@ -70,7 +70,7 @@ async function main() {
   const tradingPair = await hre.reef.getContractAt(
     "Token",
     tradingPairAddress,
-    uniswapDeployer
+    reefswapDeployer
   );
   const lpTokenAmount = await tradingPair.balanceOf(address);
   const reefAmount = await tokenReef.balanceOf(tradingPairAddress);

@@ -1,6 +1,6 @@
 import { Contract, BigNumber } from "ethers";
-import UniswapFactory from "../artifacts/contracts/UniswapV2Factory.sol/UniswapV2Factory.json";
-import UniswapRouter from "../artifacts/contracts/UniswapV2Router02.sol/UniswapV2Router02.json";
+import ReefswapFactory from "../artifacts/contracts/ReefswapV2Factory.sol/ReefswapV2Factory.json";
+import ReefswapRouter from "../artifacts/contracts/ReefswapV2Router02.sol/ReefswapV2Router02.json";
 import Token from "../artifacts/contracts/Token.sol/Token.json";
 
 import setup from "./setup";
@@ -22,10 +22,10 @@ const main = async () => {
   const tokenReef = new Contract(dic.tokenReef, Token.abi, wallet);
   const tokenErc = new Contract(dic.tokenErc, Token.abi, wallet);
 
-  const router = new Contract(dic.router, UniswapRouter.abi, wallet);
+  const router = new Contract(dic.router, ReefswapRouter.abi, wallet);
   const factory = new Contract(
     await router.factory(),
-    UniswapFactory.abi,
+    ReefswapFactory.abi,
     wallet
   );
 
