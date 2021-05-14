@@ -6,9 +6,17 @@ Reefswap is a DEX on the Reef chain.
 
 Install all dependencies with `yarn`.
 
-## Running
-Write scripts under the `scripts` directory and run them using the following run template...
-`npx hardhat run scripts/{script-name}.js`
+## Deploy
+Run
+`npx hardhat run scripts/deploy.js`
+
+The script will create two ERC20 tokens, Reefswap Factory, Reefswap Router and add liquidity to them through the Reefswap router.
+
+
+## Trade
+
+Change the addresses in `src/trade.ts` to match the ones in the deploy scripts and then run:
+`yarn trade`
 
 
 ## Configure
@@ -24,36 +32,3 @@ Users can define the network configuration in `hardhat.config.js`.
 He can switch the `defaultNetwork` to the desired one.
 
 Configuring the Reef network, the user can edit its URL. If the URL exists (can be pinged), the system will automatically connect to it, else it will run internal `Reef-Node` and try to connect to it.
-
-The default configuration has `reef` defined as the default network, and its URL is set to: `ws://127.0.0.1:9944`.
-```javascript
-module.exports = {
-	solidity: "0.7.3",
-};
-```
-
-Users can modify their values by replacing the existing ones like so...
-```javascript
-module.exports = {
-	solidity: "0.7.3",
-
-  networks: {
-		reef: {
-			url: "ws://127.0.0.1:9944",
-		}
-	},
-};
-```
-
-Connect to the reef-testnet...
-```javascript
-module.exports = {
-	solidity: "0.7.3",
-	
-  networks: {
-		reef: {
-			url: "wss://rpc-testnet.reefscan.com/ws",
-		}
-	},
-};
-```

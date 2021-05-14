@@ -1,11 +1,11 @@
 import { Contract, ContractFactory, BigNumber } from "ethers";
 
-import UniswapFactory from "../artifacts/contracts/UniswapV2Factory.sol/UniswapV2Factory.json";
-import UniswapRouter from "../artifacts/contracts/UniswapV2Router02.sol/UniswapV2Router02.json";
+// Our contracts
+import ReefswapFactory from "../artifacts/contracts/ReefswapV2Factory.sol/ReefswapV2Factory.json";
+import ReefswapRouter from "../artifacts/contracts/ReefswapV2Router02.sol/ReefswapV2Router02.json";
 import Token from "../artifacts/contracts/Token.sol/Token.json";
 
 import setup from "./setup";
-
 
 const dollar = BigNumber.from("10000000000000");
 
@@ -22,12 +22,12 @@ const main = async () => {
     .deploy(dollar.mul(1000));
 
   // deploy factory
-  const factory = await ContractFactory.fromSolidity(UniswapFactory)
+  const factory = await ContractFactory.fromSolidity(ReefswapFactory)
     .connect(wallet)
     .deploy(deployerAddress);
 
   // deploy router
-  const router = await ContractFactory.fromSolidity(UniswapRouter)
+  const router = await ContractFactory.fromSolidity(ReefswapRouter)
     .connect(wallet)
     .deploy(factory.address, tokenReef.address);
 

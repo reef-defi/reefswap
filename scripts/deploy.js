@@ -2,39 +2,34 @@ const hre = require("hardhat");
 const ethers = require("ethers");
 
 const dollar = ethers.BigNumber.from("10000000000000");
+const REEF_ADDRESS = "0x0000000000000000000000000000000001000000";
 
 async function main() {
-  //var log = console.log;
-  //console.log = function () {
-  //log.apply(console, arguments);
-  //// Print the stack trace
-  //console.trace();
-  //};
-  const uniswapDeployer = await hre.reef.getSignerByName("alice");
+  const reefswapDeployer = await hre.reef.getSignerByName("alice");
 
   // token contracts
-  const ReefToken = await hre.reef.getContractFactory("Token", uniswapDeployer);
-  const ErcToken = await hre.reef.getContractFactory("Token", uniswapDeployer);
+  const ReefToken = await hre.reef.getContractFactory("Token", reefswapDeployer);
+  const ErcToken = await hre.reef.getContractFactory("Token", reefswapDeployer);
 
-  // uniswap contracts
-  const UniswapV2Factory = await hre.reef.getContractFactory(
-    "UniswapV2Factory",
-    uniswapDeployer
+  // reefswap contracts
+  const ReefswapV2Factory = await hre.reef.getContractFactory(
+    "ReefswapV2Factory",
+    reefswapDeployer
   );
-  const UniswapV2Router = await hre.reef.getContractFactory(
-    "UniswapV2Router02",
-    uniswapDeployer
+  const ReefswapV2Router = await hre.reef.getContractFactory(
+    "ReefswapV2Router02",
+    reefswapDeployer
   );
 
   // deploy
   const tokenReef = await ReefToken.deploy(dollar.mul(1000));
   const tokenErc = await ErcToken.deploy(dollar.mul(1000));
 
-  const factory = await UniswapV2Factory.deploy(
-    await uniswapDeployer.getAddress()
+  const factory = await ReefswapV2Factory.deploy(
+    await reefswapDeployer.getAddress()
   );
 
-  const router = await UniswapV2Router.deploy(
+  const router = await ReefswapV2Router.deploy(
     factory.address,
     tokenReef.address
   );
@@ -53,11 +48,7 @@ async function main() {
 
   console.log("Approve successful");
 
-  const address = await uniswapDeployer.getAddress();
-  console.log("address", address);
-
-  console.log(await tokenReef.balanceOf(address));
-  console.log(await tokenReef.balanceOf(tokenReef.address));
+  const address = await reefswapDeployer.getAddress();
 
   const tx = await router.addLiquidity(
     tokenReef.address,
@@ -79,7 +70,7 @@ async function main() {
   const tradingPair = await hre.reef.getContractAt(
     "Token",
     tradingPairAddress,
-    uniswapDeployer
+    reefswapDeployer
   );
   const lpTokenAmount = await tradingPair.balanceOf(address);
   const reefAmount = await tokenReef.balanceOf(tradingPairAddress);
