@@ -6,9 +6,13 @@ const REEF_ADDRESS = "0x0000000000000000000000000000000001000000";
 
 async function main() {
   const reefswapDeployer = await hre.reef.getSignerByName("alice");
+  await reefswapDeployer.claimDefaultAccount();
 
   // token contracts
-  const ReefToken = await hre.reef.getContractFactory("Token", reefswapDeployer);
+  const ReefToken = await hre.reef.getContractFactory(
+    "Token",
+    reefswapDeployer
+  );
   const ErcToken = await hre.reef.getContractFactory("Token", reefswapDeployer);
 
   // reefswap contracts
