@@ -37,6 +37,7 @@ const main = async () => {
     tokenErc: tokenErc.address,
     factory: factory.address,
     router: router.address,
+    deployerAddress: deployerAddress,
   });
 
   // approve
