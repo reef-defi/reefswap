@@ -6,6 +6,11 @@ Reefswap is a DEX on the Reef chain.
 
 Install all dependencies with `yarn`.
 
+Reefswap can be deployed in different ways:
+
+- `scripts/` folder includes `hardhat` scripts
+- `src/` folder includes raw TypeScript scripts, which directly use `evm-provider.js`
+
 ## Deploy
 Run
 `npx hardhat run scripts/deploy.js`
@@ -24,6 +29,13 @@ Define your Reef chain URL in `hardhat.config.js` (by default `ws://127.0.0.1:99
 
 Hardhat-reef uses the default network `reef`.
 If the user wants to run the script on the other network, he can do so in CLI with `--network {network-name}` flag.
+
+To change the deployer account, update the line 
+```
+const reefswapDeployer = await hre.reef.getSignerByName("alice");
+```
+
+in `scripts/deploy.js` to your account defined in `hardhat.config.js`.
 
 Example:
 `yarn hardhat run scripts/sample-script.js --network hardhat`
