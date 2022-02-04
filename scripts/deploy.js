@@ -7,6 +7,7 @@ const REEF_ADDRESS = "0x0000000000000000000000000000000001000000";
 async function main() {
   const reefswapDeployer = await hre.reef.getSignerByName("alice");
   await reefswapDeployer.claimDefaultAccount();
+  const signerAddress = await reefswapDeployer.getAddress();
 
   // token contracts
   const ReefToken = await hre.reef.getContractFactory(
@@ -26,16 +27,38 @@ async function main() {
   );
 
   // deploy
-  const tokenReef = await ReefToken.deploy(dollar.mul(1000));
-  const tokenErc = await ErcToken.deploy(dollar.mul(1000));
+  console.log("deploying reef");
+  const defaultArgs = [dollar.mul(1000)];
+  const tokenReef = await ReefToken.deploy(...defaultArgs);
+  await hre.reef.verifyContract(tokenReef.address, "Token", defaultArgs, {
+    compilerVersion: "v0.7.3+commit.9bfce1f6",
+  });
+  console.log("deploying erc");
+  const tokenErc = await ErcToken.deploy(...defaultArgs);
+  await hre.reef.verifyContract(tokenErc.address, "Token", defaultArgs, {
+    compilerVersion: "v0.7.3+commit.9bfce1f6",
+  });
 
-  const factory = await ReefswapV2Factory.deploy(
-    await reefswapDeployer.getAddress()
+  console.log("deploying factory");
+  const factoryArgs = [signerAddress];
+  const factory = await ReefswapV2Factory.deploy(...factoryArgs);
+  console.log("Verifing factory");
+  await hre.reef.verifyContract(
+    factory.address,
+    "ReefswapV2Factory",
+    factoryArgs,
+    { compilerVersion: "v0.5.16+commit.9c3226ce" }
   );
 
-  const router = await ReefswapV2Router.deploy(
-    factory.address,
-    tokenReef.address
+  console.log("deploying router");
+  const routerArgs = [factory.address, tokenReef.address];
+  const router = await ReefswapV2Router.deploy(...routerArgs);
+  console.log("Verifing router");
+  await hre.reef.verifyContract(
+    router.address,
+    "ReefswapV2Router02",
+    routerArgs,
+    { compilerVersion: "v0.6.6+commit.6c089d02" }
   );
 
   console.log("Deploy done");
@@ -86,6 +109,7 @@ async function main() {
     liquidityPoolReefAmount: reefAmount.toString(),
     liquidityPoolErcAmount: ercAmount.toString(),
   });
+  console.log("Finished!");
 }
 
 main()
