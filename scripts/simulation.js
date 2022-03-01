@@ -5,11 +5,11 @@ const dollar = ethers.BigNumber.from("100000000000000");
 const REEF_ADDRESS = "0x0000000000000000000000000000000001000000";
 
 const tokens = {
-  tokenReef: '0x709bD59aD352C2ee0b41e4920AE3b7e5F42EB222',  
-  tokenErc1: '0xe1F624F629Df126a1b7aE30B47fD2E52902834cb',
-  tokenErc2: '0x6a6f9922a9a680040365D5d2C3aa94dc95CfeCbb',
-  factory: '0xd5Bd58976fEE1914dE352d335E8d82761F96577d',
-  router: '0x4BC45d6aCE3f14Cc47ba240F2315f1f74C089dd1'
+  tokenReef: '0x709bD59aD352C2ee0b41e4920AE3b7e5F42EB222',    
+  tokenErc1: '0x45F5eD44A3CD988B4f2cA71832B2de29D0930bc1',
+  tokenErc2: '0xe1F624F629Df126a1b7aE30B47fD2E52902834cb',
+  factory: '0x6a6f9922a9a680040365D5d2C3aa94dc95CfeCbb',
+  router: '0xd5Bd58976fEE1914dE352d335E8d82761F96577d'
 }
 
 const createToken = async (signer, amount) => {
@@ -97,36 +97,24 @@ const swap = async (router, sell, buy, sellAmount, buyMinAmount, accEvmAddress) 
   console.log(`Swap success: ${sellAmount} -> ${buyMinAmount}`)
 }
 
-const removeLiquidity = async (router, token1, token2, removeAmount, minAmount1, minAmount2, acc) => router.removeLiquidity(
-  token1.address,
-  token2.address,
-  removeAmount,
-  minAmount1,
-  minAmount2,
-  acc,
-  Date.now() + 60 * 1000
-);
-
-
 async function main() {
   const reefswapDeployer = await hre.reef.getSignerByName("alice");
   console.log("Claiming default account")
-  await reefswapDeployer.claimDefaultAccount()
+  // await reefswapDeployer.claimDefaultAccount()
   const evmAddress = await reefswapDeployer.getAddress();
 
   console.log("Creating tokens")
   // reefswap contracts
-  // const mainToken = await createToken(reefswapDeployer, dollar.mul(500000000000000));
-  // const token1 = await createToken(reefswapDeployer, dollar.mul(100000000000000));
-  // const token2 = await createToken(reefswapDeployer, dollar.mul(100000000000000));
-  // const factory = await createFactory(reefswapDeployer);
-  // const router = await createRouter(reefswapDeployer, factory.address, mainToken.address);
+  const token1 = await createToken(reefswapDeployer, dollar.mul(100000000000000));
+  const token2 = await createToken(reefswapDeployer, dollar.mul(100000000000000));
+  const factory = await createFactory(reefswapDeployer);
+  const router = await createRouter(reefswapDeployer, factory.address, REEF_ADDRESS);
   
-  console.log('Retrieving tokens');
-  const token1 = await hre.reef.getContractAt("Token", tokens.tokenErc1, reefswapDeployer);
-  const token2 = await hre.reef.getContractAt("Token", tokens.tokenErc2, reefswapDeployer);
-  const factory = await hre.reef.getContractAt("ReefswapV2Factory", tokens.factory, reefswapDeployer);
-  const router = await hre.reef.getContractAt("ReefswapV2Router02", tokens.router, reefswapDeployer);
+  // console.log('Retrieving tokens');
+  // const token1 = await hre.reef.getContractAt("Token", tokens.tokenErc1, reefswapDeployer);
+  // const token2 = await hre.reef.getContractAt("Token", tokens.tokenErc2, reefswapDeployer);
+  // const factory = await hre.reef.getContractAt("ReefswapV2Factory", tokens.factory, reefswapDeployer);
+  // const router = await hre.reef.getContractAt("ReefswapV2Router02", tokens.router, reefswapDeployer);
 
   
   console.log({
@@ -166,15 +154,17 @@ async function main() {
   console.log("Swaping token1")
 
   const defaultAmount = dollar.mul(10000000);
+  let amount = defaultAmount;
   for (let index = 0; index < 10; index ++) {
-    const min = dollar.mul((index + 1) * 100000);
-    await swap(router, token1, token2, defaultAmount, min, evmAddress);
+    const min = amount.div(10);
+    await swap(router, token1, token2, amount, min, evmAddress);
+    amount = defaultAmount.mul(Math.floor(Math.random() * 9) + 1);
   }
-  
   console.log("Swaping token2")
   for (let index = 0; index < 10; index ++) {
-    const min = dollar.mul((index + 1) * 100000);
-    await swap(router, token2, token1, defaultAmount, min, evmAddress);
+    const min = amount.div(10);
+    await swap(router, token2, token1, amount, min, evmAddress);
+    amount = defaultAmount.mul(Math.floor(Math.random() * 9) + 1);
   }
 
   console.log("Finished!");
