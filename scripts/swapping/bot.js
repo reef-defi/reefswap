@@ -1,4 +1,4 @@
-const { RandomSwapBot } = require("./swapBot")
+const { RandomSwapBot } = require("../swapBot")
 
 const tokens = {
   tokenErc1: '0x76Ac256ccea317379514437Cf1212DB653dcaf10',

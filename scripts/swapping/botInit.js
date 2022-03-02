@@ -1,6 +1,6 @@
 const hre = require("hardhat");
 const ethers = require("ethers");
-const { createToken, createFactory, createRouter, addLiquidity, removeLiquidity } = require("./utils");
+const { createToken, createFactory, createRouter, addLiquidity, removeLiquidity } = require("../utils");
 
 const dollar = ethers.BigNumber.from("100000000000000");
 const REEF_ADDRESS = "0x0000000000000000000000000000000001000000";
