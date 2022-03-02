@@ -32,9 +32,8 @@ class RandomSwapBot {
     const multiplier = Math.random() * 10 ** Math.round(Math.random() * 6 + 3)
     const amount = defaultAmount.mul(Math.round(multiplier));
     const min = amount.div(10);
-    const minute = Math.round((new Date()).getMinutes()/5)
-    // Every 5 minute we change token focus
-    const pick = Math.random() < (minute % 2 === 0 ? 0.6 : 0.4)
+    const pick = Math.random() <= 0.5
+    
     const [token1, token2] = pick
       ? [this.token1, this.token2] 
       : [this.token2, this.token1] 
