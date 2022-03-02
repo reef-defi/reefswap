@@ -42,6 +42,16 @@ The script will create two ERC20 tokens, Reefswap Factory, Reefswap Router and a
 Change the addresses in `src/trade.ts` to match the ones in the deploy scripts and then run:
 `yarn trade`
 
+## Random testing trading bot
+Random bot was defined for the purouse of testing swap and pool data.
+It consists of deploymant and swapping
+
+How to run:
+- In the first instance user needs to provide 10k Reef to default accounts
+- `yarn hardhat run scripts/botInit.js` - Create tokens, facotry, router, verifie them, add liquidity and remove liquidity
+- Replace token addresses in `scripts/bot.js` with given output from `botInit` - Default accounts are swapping randomly with random amounts
+- `yarn hardhat run scripts/bot.js`
+
 
 ## Configure
 Define your Reef chain URL in `hardhat.config.js` (by default `ws://127.0.0.1:9944`):
