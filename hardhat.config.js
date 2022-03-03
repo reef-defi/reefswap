@@ -1,3 +1,4 @@
+require("dotenv").config();
 require("@reef-defi/hardhat-reef");
 
 // This is a sample Hardhat task. To learn how to create your own go to
@@ -71,6 +72,20 @@ module.exports = {
     reef: {
       url: "ws://127.0.0.1:9944",
       scanUrl: "http://localhost:8000",
+    },
+    reef_testnet: {
+      url: "wss://rpc-testnet.reefscan.com/ws",
+      scanUrl: "https://testnet.reefscan.com",
+      seeds: {
+        testnet_account: process.env.MNEMONIC_TESTNET || "",
+      },
+    },
+    reef_mainnet: {
+      url: "wss://rpc.reefscan.com/ws",
+      scanUrl: "wss://reefscan.com",
+      seeds: {
+        mainnet_account: process.env.MNEMONIC_MAINNET || "",
+      },
     },
     ganache: {
       url: "http://127.0.0.1:8545",
