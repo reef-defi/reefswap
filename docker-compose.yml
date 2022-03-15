@@ -6,4 +6,7 @@ services:
     image: reefswap-bot
     command: node scripts/trading-bot/runner.js
     environment:
-      - MINUTE_INTERVAL=10
+      - MINUTE_INTERVAL=${MINUTE_INTERVAL}
+      - MNEMONIC_TESTNET=${MNEMONIC_TESTNET}
+      - MNEMONIC_MAINNET=${MNEMONIC_MAINNET}
+      - MNEMONIC_LOCALHOST=${MNEMONIC_LOCALHOST}
