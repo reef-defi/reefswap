@@ -1,0 +1,12 @@
+version: "3.4"
+services:
+  bot:
+    build:
+      context: .
+    image: reefswap-bot
+    command: yarn hardhat run scripts/trading-bot/runner.js --network reef_testnet
+    environment:
+      - MINUTE_INTERVAL=${MINUTE_INTERVAL}
+      - MNEMONIC_TESTNET=${MNEMONIC_TESTNET}
+      - MNEMONIC_MAINNET=${MNEMONIC_MAINNET}
+      - MNEMONIC_LOCALHOST=${MNEMONIC_LOCALHOST}

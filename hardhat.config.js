@@ -72,6 +72,9 @@ module.exports = {
     reef: {
       url: "ws://127.0.0.1:9944",
       scanUrl: "http://localhost:8000",
+      seeds: {
+        account: process.env.MNEMONIC_LOCALHOST || "",
+      }
     },
     reef_testnet: {
       url: "wss://rpc-testnet.reefscan.com/ws",
