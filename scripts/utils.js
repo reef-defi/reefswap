@@ -1,15 +1,18 @@
 const hre = require("hardhat");
+const ethers = require('ethers');
 
-const createToken = async (signer, amount) => {
+const createToken = async (name, signer, amount) => {
+  console.log('Deploying ' + name)
   const args = [amount];
 
   const Token = await hre.reef.getContractFactory(
-    "Token",
+    name,
     signer
   );
 
   const token = await Token.deploy(...args);
-  await hre.reef.verifyContract(token.address, "Token", args, {
+  console.log('Address: ', token.address)
+  await hre.reef.verifyContract(token.address, name, args, {
     compilerVersion: "v0.7.3+commit.9bfce1f6",
   });
 
@@ -56,9 +59,9 @@ const addLiquidity = async (router, token1, token2, amount1, amount2, mainAddres
   await token1.approve(router.address, amount1);
   await token2.approve(router.address, amount2);
 
-  console.log("Approve successful");
+  console.log("Approve add liquidity successful");
 
-  await router.addLiquidity(
+  const res = await router.addLiquidity(
     token1.address,
     token2.address,
     amount1,
@@ -68,23 +71,25 @@ const addLiquidity = async (router, token1, token2, amount1, amount2, mainAddres
     mainAddress,
     10000000000
   );
+
   console.log("Liquidity added");
+  return res;
 };
 
-const removeLiquidity = async (token1, token2, factory, router, signer, amount, t1Amo, t2Amo) => {
+const removeLiquidity = async (token1, token2, factory, router, signer, amount) => {
   const poolAddr = await factory.getPair(token1.address, token2.address);
   const pool = await hre.reef.getContractAt("ReefswapV2Pair", poolAddr, signer);
   const evmAddress = await signer.getAddress();
-  console.log("Pool found")
+  // console.log("Pool found")
   await pool.approve(router.address, amount)
-  console.log("Approced remove")
+  console.log("Approced remove successful")
 
   await router.removeLiquidity(
     token1.address,
     token2.address,
     amount,
-    t1Amo,
-    t2Amo,
+    0,
+    0,
     evmAddress,
     Date.now() + 60 * 1000,
   )
@@ -93,7 +98,7 @@ const removeLiquidity = async (token1, token2, factory, router, signer, amount, 
 
 const swap = async (router, sell, buy, sellAmount, buyMinAmount, accEvmAddress) => {
   await sell.approve(router.address, sellAmount);
-  console.log("Approve successful");
+  console.log("Approve swap successful");
 
   await router.swapExactTokensForTokensSupportingFeeOnTransferTokens(
     sellAmount,
@@ -104,6 +109,7 @@ const swap = async (router, sell, buy, sellAmount, buyMinAmount, accEvmAddress) 
   )
   console.log(`Swap success: ${sellAmount} -> ${buyMinAmount}`)
 }
+
 
 module.exports = {
   swap,
