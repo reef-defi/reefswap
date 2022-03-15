@@ -1,0 +1,9 @@
+version: "3.4"
+services:
+  bot:
+    build:
+      context: https://github.com/reef-defi/reefswap.git
+    image: reefswap-bot
+    command: node scripts/trading-bot/runner.js
+    environment:
+      - MINUTE_INTERVAL=10
