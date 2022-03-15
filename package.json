@@ -16,7 +16,7 @@
   "dependencies": {
     "@nomiclabs/hardhat-ganache": "^2.0.0",
     "@openzeppelin/contracts": "3.4.0",
-    "@reef-defi/hardhat-reef": "^1.0.8",
+    "@reef-defi/hardhat-reef": "^1.0.10",
     "ts-node": "^8.9.1"
   }
 }
