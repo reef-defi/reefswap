@@ -19,7 +19,7 @@ class BasicBot {
   getRandomAmount() {
     const pow = Math.max(Math.round(Math.random() * 3), 1);
     const multiplier = Math.random() * 10 ** pow;
-    return dollar.mul(Math.round(multiplier));
+    return dollar.mul(Math.round(multiplier)).add(dollar);
   }
 
   getTokenPick() {
