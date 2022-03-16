@@ -16,6 +16,22 @@ class BasicBot {
     this.name = name;
   }
 
+  getRandomAmount() {
+    const pow = Math.max(Math.round(Math.random() * 3), 1);
+    const multiplier = Math.random() * 10 ** pow;
+    return dollar.mul(Math.round(multiplier));
+  }
+
+  getTokenPick() {
+    const pick = Math.random() <= 0.5
+    
+    const [token1, token2] = pick
+      ? [this.token1, this.token2]
+      : [this.token2, this.token1];
+
+    return [pick, token1, token2];
+  }
+
   async initialize(tokens) {
     this.signer = await hre.reef.getSignerByName(this.name);
     this.address = await this.signer.getAddress();
@@ -26,28 +42,16 @@ class BasicBot {
   }
 
   async swap() {
-    const pick = Math.random() <= 0.5
+    const [pick, token1, token2] = this.getTokenPick();
+    const amount = this.getRandomAmount();
     
-    const [token1, token2] = pick
-      ? [this.token1, this.token2]
-      : [this.token2, this.token1];
-
-    const multiplier = Math.random() * 10 ** Math.round(Math.random() * 3)
-    const amount = dollar.mul(Math.round(multiplier));
-
     console.log(`${this.name} is swapping token ${pick ? '1' : '2'}...`);
     await swap(this.router, token1, token2, amount, 0, this.address);
   }
 
   async addLiquidity() {
-    const pick = Math.random() <= 0.5
-    
-    const [token1, token2] = pick
-      ? [this.token1, this.token2]
-      : [this.token2, this.token1];
-
-    const multiplier = Math.random() * 10 ** Math.round(Math.random() * 3)
-    const amount = dollar.mul(Math.round(multiplier));
+    const [pick, token1, token2] = this.getTokenPick();
+    const amount = this.getRandomAmount();
 
     console.log(`${this.name} is adding Liquidity ${pick ? '1' : '2'}...`);
     await addLiquidity(
@@ -61,14 +65,8 @@ class BasicBot {
   }
 
   async removeLiquidity() {
-    const pick = Math.random() <= 0.5
-    
-    const [token1, token2] = pick
-      ? [this.token1, this.token2]
-      : [this.token2, this.token1];
-
-    const multiplier = Math.random() * 10 ** Math.round(Math.random() * 3)
-    const amount = dollar.mul(Math.round(multiplier));
+    const [pick, token1, token2] = this.getTokenPick();
+    const amount = this.getRandomAmount();
 
     console.log(`${this.name} is removing Liquidity ${pick ? '1' : '2'}...`);
     await removeLiquidity(
