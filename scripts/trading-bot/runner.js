@@ -7,17 +7,21 @@ const tokens = {
   router: '0x0A2906130B1EcBffbE1Edb63D5417002956dFd41',
 }
 
-const MINUTE_INTERVAL = process.env.MINUTE_INTERVAL || 10
+const MINUTE_INTERVAL = process.env.MINUTE_INTERVAL || 1
 
 async function main() {
   const bot = new BasicBot("testnet_account");
+  console.log("Minute iterval: ", MINUTE_INTERVAL)
   console.log("Initializing bot...")
   await bot.initialize(tokens);
   console.log("Bot initialized!")
   
   setInterval(async () => {
-    await bot.step();
+    try {
+      await bot.step();
+      await bot.swap();
+    } catch(e) {}
   }, 1000 * 60 * MINUTE_INTERVAL);
 }
 
-main();
+main()

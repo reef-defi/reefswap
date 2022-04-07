@@ -17,7 +17,7 @@ class BasicBot {
   }
 
   getRandomAmount() {
-    const pow = Math.max(Math.round(Math.random() * 3), 1);
+    const pow = Math.max(Math.round(Math.random() * 3), 1) + 1;
     const multiplier = Math.random() * 10 ** pow;
     return dollar.mul(Math.round(multiplier)).add(dollar);
   }
@@ -80,11 +80,10 @@ class BasicBot {
   }
 
   async step() {
-    const randomPick = Math.floor(Math.random() * 3);
+    const randomPick = Math.floor(Math.random() * 2);
     switch(randomPick) {
-      case 0: return this.swap();
-      case 1: return this.addLiquidity();
-      case 2: return this.removeLiquidity();
+      case 0: return this.addLiquidity();
+      case 1: return this.removeLiquidity();
     }
   }
 }

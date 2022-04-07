@@ -1,6 +1,8 @@
 FROM node:16
 WORKDIR /app
-COPY package.json .yarnrc.yml /app/
-RUN yarn install
+COPY package.json yarn.lock /app/
+
+RUN yarn
+
 COPY . /app/ 
 
