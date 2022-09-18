@@ -98,7 +98,6 @@ const removeLiquidity = async (token1, token2, factory, router, signer, amount) 
 
 const swap = async (router, sell, buy, sellAmount, buyMinAmount, accEvmAddress) => {
   await sell.approve(router.address, sellAmount);
-  console.log("Approve swap successful");
 
   await router.swapExactTokensForTokensSupportingFeeOnTransferTokens(
     sellAmount,
@@ -107,7 +106,7 @@ const swap = async (router, sell, buy, sellAmount, buyMinAmount, accEvmAddress) 
     accEvmAddress,
     Date.now() + 60000 // One minute
   )
-  console.log(`Swap success: ${sellAmount} -> ${buyMinAmount}`)
+  console.log(`Swap success: ${sellAmount} ${sell.address} -> ${buyMinAmount} ${buy.address}`)
 }
 
 
