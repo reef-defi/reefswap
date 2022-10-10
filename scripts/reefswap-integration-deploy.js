@@ -2,7 +2,7 @@ const hre = require("hardhat");
 const ethers = require("ethers");
 const { addLiquidity, removeLiquidity, swap } = require("./utils");
 
-const dollar = ethers.BigNumber.from("10000000000000");
+const dollar = ethers.BigNumber.from("1000000000000000000000");
 const REEF_ADDRESS = "0x0000000000000000000000000000000001000000";
 
 async function main() {
@@ -11,7 +11,8 @@ async function main() {
   const signerAddress = await reefswapDeployer.getAddress();
 
   // token contracts
-  const ErcToken = await hre.reef.getContractFactory("Token", reefswapDeployer);
+  const LotrToken = await hre.reef.getContractFactory("LotrToken", reefswapDeployer);
+  const SwToken = await hre.reef.getContractFactory("SwToken", reefswapDeployer);
   const reefToken = await hre.reef.getContractAt("Token", REEF_ADDRESS, reefswapDeployer);
 
   // reefswap contracts
@@ -26,11 +27,11 @@ async function main() {
 
   // deploy
   console.log("deploying token1");
-  const defaultArgs = [dollar.mul(1000000000000000)];
-  const token1 = await ErcToken.deploy(...defaultArgs);
+  const defaultArgs = [dollar.mul("100000000000000000000000")];
+  const token1 = await LotrToken.deploy(...defaultArgs);
   console.log(token1.address)
   console.log("deploying token2");
-  const token2 = await ErcToken.deploy(...defaultArgs);
+  const token2 = await SwToken.deploy(...defaultArgs);
   
 
   console.log("deploying factory");
@@ -42,11 +43,11 @@ async function main() {
 
 
   // console.log('Token contract verification')
-  await hre.reef.verifyContract(token1.address, "Token", defaultArgs, {
+  await hre.reef.verifyContract(token1.address, "LotrToken", defaultArgs, {
     compilerVersion: "v0.7.3+commit.9bfce1f6",
     license: "MIT",
   });
-  await hre.reef.verifyContract(token2.address, "Token", defaultArgs, {
+  await hre.reef.verifyContract(token2.address, "SwToken", defaultArgs, {
     compilerVersion: "v0.7.3+commit.9bfce1f6",
     license: "MIT",
   });
@@ -83,53 +84,12 @@ async function main() {
   // Creating token2 - token1 pool pair
   await addLiquidity(
     router,
-    reefToken,
-    token1,
-    dollar.mul(1000000000),
-    dollar.mul(1000000000),
-    signerAddress
-  );
-
-
-  // const t1t2PairAddress = await factory.getPair(token1.address, reefToken.address);
-  // console.log('Pair address: ', t1t2PairAddress)
-  // const reeftoken1PairAddress = await factory.getPair(reefToken.address, token1.address);
-  // console.log('Pair address: ', reeftoken1PairAddress)
-  // const reeftoken2PairAddress = await factory.getPair(reefToken.address, token2.address);
-  // console.log('Pair address: ', reeftoken2PairAddress)
-
-
-  // await hre.reef.verifyContract(
-  //   t1t2PairAddress,
-  //   "ReefswapV2Pair",
-  //   [],
-  //   { compilerVersion: "v0.5.16+commit.9c3226ce" }
-  // );
-  // console.log("Done");
-  // await hre.reef.verifyContract(
-  //   reeftoken1PairAddress,
-  //   "ReefswapV2Pair",
-  //   [],
-  //   { compilerVersion: "v0.5.16+commit.9c3226ce" }
-  // );
-  // await hre.reef.verifyContract(
-  //   reeftoken2PairAddress,
-  //   "ReefswapV2Pair",
-  //   [],
-  //   { compilerVersion: "v0.5.16+commit.9c3226ce" }
-  // );
-  
-  console.log("Adding liquidity token1-token2");
-  // Creating token2 - token1 pool pair
-  await addLiquidity(
-    router,
     token1,
     token2,
-    dollar.mul(1000000000),
-    dollar.mul(1000000000),
+    dollar.mul("100000000000000000"),
+    dollar.mul("100000000000000000"),
     signerAddress
   );
-  
   
   // Creating REEF - token1 pool pair
   console.log("Adding liquidity Reef-token1");
@@ -137,8 +97,8 @@ async function main() {
     router,
     reefToken,
     token1,
-    dollar.mul(1000000000).toString(),
-    dollar.mul(1000000000/2).toString(),
+    dollar.mul("100000000000000000").toString(),
+    dollar.mul("100000000000000000").div(2).toString(),
     signerAddress
   );
   // Creating REEF - token2 pool pair
@@ -147,8 +107,8 @@ async function main() {
     router,
     reefToken,
     token2,
-    dollar.mul(1000000000/2).toString(),
-    dollar.mul(1000000000).toString(),
+    dollar.mul("100000000000000000").div(2).toString(),
+    dollar.mul("100000000000000000").toString(),
     signerAddress
   );
   // Withdraw from Reef - token2 pool pair
