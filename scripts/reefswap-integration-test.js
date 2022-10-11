@@ -34,13 +34,20 @@ async function main() {
       case 2: return token2;
     };
   }
-
+  const pick = (num) => {
+    const p = Math.floor(Math.random()*2)
+    switch(num % 3) {
+      case 0: return [token1, token2][p];
+      case 1: return [token2, reefToken][p];
+      case 2: return [reefToken, token1][p];
+    };
+  }
   // Create 10 random swaps
   for (let i = 0; i < 30; i++) {
     await swap(
       router,
       select(i),
-      select(i + 1),
+      pick(i),
       dollar.mul(100).toString(),
       dollar.mul(1).toString(),
       signerAddress

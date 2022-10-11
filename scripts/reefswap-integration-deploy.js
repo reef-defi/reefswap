@@ -2,7 +2,7 @@ const hre = require("hardhat");
 const ethers = require("ethers");
 const { addLiquidity, removeLiquidity, swap } = require("./utils");
 
-const dollar = ethers.BigNumber.from("1000000000000000000000");
+const dollar = ethers.BigNumber.from("1000000000000000000");
 const REEF_ADDRESS = "0x0000000000000000000000000000000001000000";
 
 async function main() {
@@ -86,8 +86,8 @@ async function main() {
     router,
     token1,
     token2,
-    dollar.mul("100000000000000000"),
-    dollar.mul("100000000000000000"),
+    dollar.mul("1000000"),
+    dollar.mul("1000000"),
     signerAddress
   );
   
@@ -97,8 +97,8 @@ async function main() {
     router,
     reefToken,
     token1,
-    dollar.mul("100000000000000000").toString(),
-    dollar.mul("100000000000000000").div(2).toString(),
+    dollar.mul("1000000").toString(),
+    dollar.mul("1000000").div(2).toString(),
     signerAddress
   );
   // Creating REEF - token2 pool pair
@@ -107,8 +107,8 @@ async function main() {
     router,
     reefToken,
     token2,
-    dollar.mul("100000000000000000").div(2).toString(),
-    dollar.mul("100000000000000000").toString(),
+    dollar.mul("1000000").div(2).toString(),
+    dollar.mul("1000000").toString(),
     signerAddress
   );
   // Withdraw from Reef - token2 pool pair
